@@ -11,7 +11,7 @@ import (
 func main() {
 	app := fiber.New(fiber.Config{
 		Prefork:       false,
-		StrictRouting: true,
+		StrictRouting: true,	
 		CaseSensitive: true,
 		ColorScheme:   fiber.DefaultColors,
 	})
@@ -21,8 +21,10 @@ func main() {
 	} else {
 		fmt.Println("I'm a child process")
 	}
-
-	app.Get("/hello", handler.HelloWorld)
+	app.Route("/v1",func(api fiber.Router){
+		app.Get("/hello", handler.HelloWorld)
+	})
+	
 	app.Get("/test", handler.Test)
 
 	micro := fiber.New()
